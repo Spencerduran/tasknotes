@@ -1029,6 +1029,8 @@ export class TaskContextMenu {
 			const updatedSubtask = await plugin.updateTaskProperty(subtask, "projects", updatedProjects);
 			Object.assign(subtask, updatedSubtask);
 
+			await plugin.updateTaskProperty(subtask, "type", "subtask");
+
 			new Notice(this.t("contextMenus.task.organization.notices.addedAsSubtask", {
 				subtask: subtask.title,
 				parent: currentTaskFile.basename
