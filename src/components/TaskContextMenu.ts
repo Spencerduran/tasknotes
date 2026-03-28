@@ -649,6 +649,7 @@ export class TaskContextMenu {
 					const projectReference = generateLink(plugin.app, taskFile, task.path, "", "", plugin.settings.useFrontmatterMarkdownLinks);
 					plugin.openTaskCreationModal({
 						projects: [projectReference],
+						type: "subtask",
 					});
 				}
 			});

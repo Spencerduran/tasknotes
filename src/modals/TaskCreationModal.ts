@@ -1189,6 +1189,9 @@ export class TaskCreationModal extends TaskModal {
 		if (values.recurrence_anchor !== undefined) {
 			this.recurrenceAnchor = values.recurrence_anchor;
 		}
+		if (values.type !== undefined) {
+			this.userFields['type'] = values.type;
+		}
 	}
 
 	async handleSave(): Promise<void> {
