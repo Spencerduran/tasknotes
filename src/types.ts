@@ -678,6 +678,7 @@ export interface FieldMapping {
 	icsEventTag: string; // Tag used for ICS event-related content
 	googleCalendarEventId: string; // For Google Calendar sync (stores event ID)
 	reminders: string; // For task reminders
+	type: string; // For task type classification (e.g. "subtask")
 }
 
 export interface StatusConfig {
