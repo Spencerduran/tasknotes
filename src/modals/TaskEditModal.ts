@@ -1179,6 +1179,11 @@ export class TaskEditModal extends TaskModal {
 			const sanitizedProjects = currentProjects.filter((entry) => entry !== legacyReference);
 			const updatedProjects = [...sanitizedProjects, projectReference];
 			await this.plugin.updateTaskProperty(subtaskInfo, "projects", updatedProjects);
+			if (subtaskFile instanceof TFile) {
+				await this.plugin.app.fileManager.processFrontMatter(subtaskFile, (fm) => {
+					fm.type = "subtask";
+				});
+			}
 		} catch (error) {
 			console.error("Failed to add subtask relation:", error);
 		}
