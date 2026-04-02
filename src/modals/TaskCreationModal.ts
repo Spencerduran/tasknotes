@@ -1189,6 +1189,9 @@ export class TaskCreationModal extends TaskModal {
 		if (values.recurrence_anchor !== undefined) {
 			this.recurrenceAnchor = values.recurrence_anchor;
 		}
+		if (values.type !== undefined) {
+			this.userFields['type'] = values.type;
+		}
 	}
 
 	async handleSave(): Promise<void> {
@@ -1409,6 +1412,11 @@ export class TaskCreationModal extends TaskModal {
 				const sanitizedProjects = currentProjects.filter((entry) => entry !== legacyReference);
 				const updatedProjects = [...sanitizedProjects, projectReference];
 				await this.plugin.updateTaskProperty(subtaskInfo, "projects", updatedProjects);
+				if (subtaskFile instanceof TFile) {
+					await this.plugin.app.fileManager.processFrontMatter(subtaskFile, (fm) => {
+						fm.type = "subtask";
+					});
+				}
 			} catch (error) {
 				console.error("Failed to assign subtask:", error);
 			}

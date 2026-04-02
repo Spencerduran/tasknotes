@@ -466,6 +466,7 @@ export interface TaskInfo {
 	isBlocking?: boolean; // True if this task blocks at least one other task
 	details?: string; // Optional task body content
 	sortOrder?: string; // LexoRank string for ordering within column
+	type?: string; // Optional task type (e.g. "subtask")
 }
 
 export interface TaskCreationData extends Partial<TaskInfo> {
@@ -679,6 +680,7 @@ export interface FieldMapping {
 	googleCalendarEventId: string; // For Google Calendar sync (stores event ID)
 	reminders: string; // For task reminders
 	sortOrder: string; // Numeric ordering within column (lower = higher)
+	type: string; // For task type classification (e.g. "subtask")
 }
 
 export interface StatusConfig {

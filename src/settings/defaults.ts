@@ -48,6 +48,7 @@ export const DEFAULT_FIELD_MAPPING: FieldMapping = {
 	googleCalendarEventId: "googleCalendarEventId",
 	reminders: "reminders",
 	sortOrder: "tasknotes_manual_order",
+	type: "type",
 };
 
 // Default status configuration matches current hardcoded behavior

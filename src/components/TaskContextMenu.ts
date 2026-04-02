@@ -670,6 +670,7 @@ export class TaskContextMenu {
 					const projectReference = generateLink(plugin.app, taskFile, task.path, "", "", plugin.settings.useFrontmatterMarkdownLinks);
 					plugin.openTaskCreationModal({
 						projects: [projectReference],
+						type: "subtask",
 					});
 				}
 			});
@@ -1049,6 +1050,13 @@ export class TaskContextMenu {
 			const updatedProjects = [...sanitizedProjects, projectReference];
 			const updatedSubtask = await plugin.updateTaskProperty(subtask, "projects", updatedProjects);
 			Object.assign(subtask, updatedSubtask);
+
+			const subtaskFile = plugin.app.vault.getAbstractFileByPath(subtask.path);
+			if (subtaskFile instanceof TFile) {
+				await plugin.app.fileManager.processFrontMatter(subtaskFile, (fm) => {
+					fm.type = "subtask";
+				});
+			}
 
 			new Notice(this.t("contextMenus.task.organization.notices.addedAsSubtask", {
 				subtask: subtask.title,

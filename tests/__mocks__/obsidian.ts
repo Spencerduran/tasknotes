@@ -950,11 +950,30 @@ export const Notice = jest.fn().mockImplementation((message: string, timeout?: n
 export const Menu = jest.fn().mockImplementation(() => ({
   items: [],
   addItem: jest.fn().mockImplementation(function(this: any, callback: (item: any) => void) {
+    const mockSubmenu: any = {
+      addItem: jest.fn().mockImplementation((cb: (item: any) => void) => {
+        const subItem = {
+          setTitle: jest.fn().mockReturnThis(),
+          setIcon: jest.fn().mockReturnThis(),
+          onClick: jest.fn().mockReturnThis(),
+          setSection: jest.fn().mockReturnThis(),
+          setSubmenu: jest.fn().mockReturnValue(mockSubmenu),
+          setDisabled: jest.fn().mockReturnThis(),
+          setChecked: jest.fn().mockReturnThis(),
+        };
+        cb(subItem);
+        return subItem;
+      }),
+      addSeparator: jest.fn(),
+    };
     const mockItem = {
       setTitle: jest.fn().mockReturnThis(),
       setIcon: jest.fn().mockReturnThis(),
       onClick: jest.fn().mockReturnThis(),
       setSection: jest.fn().mockReturnThis(),
+      setSubmenu: jest.fn().mockReturnValue(mockSubmenu),
+      setDisabled: jest.fn().mockReturnThis(),
+      setChecked: jest.fn().mockReturnThis(),
     };
     callback(mockItem);
     this.items.push(mockItem);
